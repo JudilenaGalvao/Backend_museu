@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'user',
     'post',
     'rest_framework',
+    'rest_framework_simplejwt',
+
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,13 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
 
 WSGI_APPLICATION = 'backend_museu.wsgi.application'
 
