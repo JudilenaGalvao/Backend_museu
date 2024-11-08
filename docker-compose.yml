@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+
+  api:
+    build:
+      context: .
+    container_name: api_container
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+    depends_on:
+      - postgres
+
+  # Serviço do banco de dados PostgreSQL
+  postgres:
+    image: postgres:13
+    container_name: postgres_container
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+# Volumes para persistência de dados
+volumes:
+  postgres_data:
